@@ -1,7 +1,5 @@
 import { API } from 'Utils/constants';
 
-const types = ['LOAD','SUCCESS','ERROR'];
-
 export function fetchUser() {
   return {
     types: ['LOAD:USER', 'FETCHED:USER', 'ERROR'],
@@ -24,9 +22,13 @@ export function fetchRooms() {
   }
 }
 
-export function fetchMessages() {
+export function fetchMessages(roomId, beforeMessageId) {
   return {
-    types: ['LOAD:MESSAGES', 'FETCHED:MESSAGES', 'ERROR'],
+    types: [
+      'LOAD:MESSAGES',
+       beforeMessageId ? 'APPEND:MESSAGES' : 'FETCHED:MESSAGES',
+      'ERROR'
+    ],
     payload: {
       request:{
         url: API.MESSAGES

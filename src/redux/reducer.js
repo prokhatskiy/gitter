@@ -12,6 +12,12 @@ export default function reducer(state, action) {
         rooms: { status: 'load' }
       };
 
+    case 'LOAD:MESSAGES':
+      return {
+        ...state,
+        messages: { ...state.messages, status: 'load' }
+      };
+
     case 'FETCHED:USER':
       return {
         ...state,
@@ -22,12 +28,26 @@ export default function reducer(state, action) {
       return {
         ...state,
         rooms: { items: [...action.payload.data], status: 'fetched' }
-    };
+      };
+
+    case 'FETCHED:MESSAGES':
+      return {
+        ...state,
+        messages: { items: [...action.payload.data], status: 'fetched' }
+      };
+
+    case 'APPEND:MESSAGES':
+      return {
+        ...state,
+        messages: { items: [...state.messages.items, ...action.payload.data], status: 'fetched' }
+      };
+
     case 'ERROR':
       return {
         ...state,
         error: { ...action.error }
       };
+
     default:
       return state;
   }
