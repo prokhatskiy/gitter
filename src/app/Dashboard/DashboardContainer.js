@@ -1,13 +1,5 @@
-import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Dashboard from './Dashboard';
+import { getAuthStatus } from 'Redux/selectors';
 
-class DashboardContainer extends Component {
-    render() {
-        return (
-            <div>
-                Dashboard
-            </div>
-        )
-    }
-}
-
-export default DashboardContainer;
+export default connect(getAuthStatus)(Dashboard);

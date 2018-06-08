@@ -1,19 +1,29 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import axios from 'axios';
+import axiosMiddleware from 'redux-axios-middleware';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
+import reducer from './reducer';
 
 let store;
 
-const reducers = function (state = initialState) {
-    return state;
-};
+const axiosClient = axios.create({
+  baseURL: '/',
+  responseType: 'json'
+});
 
-const initialState = {
-    isLoggedIn: true
-};
-
-const enhancers = applyMiddleware();
+const enhancers = composeWithDevTools(
+  applyMiddleware(
+    axiosMiddleware(axiosClient)
+  )
+);
 
 export function initStore() {
-    store = createStore(reducers, initialState, enhancers);
+    store = createStore(
+      reducer,
+      {},
+      enhancers
+    );
 
     return store;
 }
