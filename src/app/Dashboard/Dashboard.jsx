@@ -4,6 +4,8 @@ import { Redirect } from 'react-router';
 import UserInfo from 'Components/UserInfo';
 import RoomsList from 'Components/RoomsList';
 
+import './Dashboard.scss';
+
 import { ROUTES } from '../../utils/constants';
 
 function MainPage({

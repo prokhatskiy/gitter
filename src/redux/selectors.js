@@ -14,7 +14,8 @@ export function getUser(state) {
 
 export function getRooms(state) {
   return {
-    rooms: get(state, 'rooms.items', [])
+    rooms: get(state, 'rooms.items', []),
+    status: get(state, 'rooms.status')
   }
 }
 
