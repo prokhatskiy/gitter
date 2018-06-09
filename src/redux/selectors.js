@@ -19,3 +19,9 @@ export function getRooms(state) {
   }
 }
 
+export function getMessages(state) {
+  return {
+    messages: get(state, 'messages.items', []),
+    status: get(state, 'messages.status')
+  }
+}

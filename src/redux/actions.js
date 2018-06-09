@@ -31,7 +31,7 @@ export function fetchMessages(roomId, beforeMessageId) {
     ],
     payload: {
       request:{
-        url: API.MESSAGES
+        url: `${API.MESSAGES}/${roomId}`
       }
     }
   }

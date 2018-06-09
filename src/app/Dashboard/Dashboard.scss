@@ -9,6 +9,7 @@
   &__aside {
     width: 200px;
     overflow: auto;
+    flex-shrink: 0;
   }
 
   &__main {

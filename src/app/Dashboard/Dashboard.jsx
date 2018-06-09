@@ -24,7 +24,7 @@ function Dashboard({
               <RoomsList />
             </aside>
             <main className="dashboard__main">
-              <Chat roomId={params.roomId} />
+              <Chat roomId={params.roomId} key={params.roomId} />
             </main>
         </section>
     )
