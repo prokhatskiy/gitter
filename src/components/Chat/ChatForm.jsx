@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import './ChatForm.scss';
 
 class ChatForm extends Component {
   constructor(props) {
