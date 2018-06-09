@@ -1,10 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import { Link } from 'react-router-dom'
 
 import './RoomsList.scss';
 
 class RoomsList extends Component {
+  static propTypes = {
+    rooms: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      avatarUrl: PropTypes.string
+    })),
+    status: PropTypes.string,
+    fetchRooms: PropTypes.func
+  };
+
+  static defaultProps = {
+    rooms: {},
+    fetchRooms: () => {}
+  };
+
   componentWillMount() {
     this.props.fetchRooms();
   }
@@ -23,25 +39,15 @@ class RoomsList extends Component {
         }
         {rooms.map(({ id, name, avatarUrl }) => (
           <li className="rooms-list__item" key={id}>
-            <a href={`/${id}`} className="rooms-list__link">
+            <Link to={`/${id}`} className="rooms-list__link">
               <img src={avatarUrl} alt={name} className="rooms-list__pic"/>
               {name}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
     );
   }
 }
-
-RoomsList.propTypes = {
-  rooms: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.string,
-    avatarUrl: PropTypes.string
-  })),
-  status: PropTypes.string,
-  fetchRooms: PropTypes.func
-};
 
 export default RoomsList;

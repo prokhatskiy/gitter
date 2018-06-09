@@ -1,3 +1,5 @@
+import get from 'lodash-es/get';
+
 export default function reducer(state, action) {
   switch (action.type) {
     case 'LOAD:USER':
@@ -43,6 +45,14 @@ export default function reducer(state, action) {
       };
 
     case 'ERROR':
+      if (get(action, 'error.response.status') === 401) {
+        return {
+          auth: {
+            isLoggedIn: false
+          }
+        }
+      }
+
       return {
         ...state,
         error: { ...action.error }

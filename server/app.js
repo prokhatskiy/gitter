@@ -24,13 +24,28 @@ app.use('/static', express.static(path.join(__dirname, '../build/static')));
 app.use(session({
   secret: 'dreamteam',
   resave: true,
-  saveUninitialized: false
+  saveUninitialized: false,
+  name: 'access_token'
 }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(function (req, res, next) {
+  if (!req.session.token && /\/api\//.test(req.baseUrl)) {
+    res.status(401);
+
+    res.send({
+      error: "Unauthorized"
+    });
+
+    return;
+  }
+
+  next();
+});
 
 // Passport Configuration
 passport.use(new OAuth2Strategy({

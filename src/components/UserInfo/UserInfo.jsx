@@ -7,6 +7,19 @@ import './UserInfo.scss';
 import { API } from 'Utils/constants';
 
 class UserInfo extends Component {
+  static propTypes = {
+    user: PropTypes.shape({
+      avatarUrlMedium: PropTypes.string,
+      displayName: PropTypes.string
+    }),
+    fetchUser: PropTypes.func
+  };
+
+  static defaultProps = {
+    user: {},
+    fetchUser: () => {}
+  };
+
   componentWillMount() {
     this.props.fetchUser();
   }
@@ -30,13 +43,5 @@ class UserInfo extends Component {
     );
   }
 }
-
-UserInfo.propTypes = {
-  user: PropTypes.shape({
-    avatarUrlMedium: PropTypes.string,
-    displayName: PropTypes.string
-  }),
-  fetchUser: PropTypes.func
-};
 
 export default UserInfo;

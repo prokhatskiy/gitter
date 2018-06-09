@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
 import UserInfo from 'Components/UserInfo';
 import RoomsList from 'Components/RoomsList';
+import Chat from 'Components/Chat';
 
 import './Dashboard.scss';
 
 import { ROUTES } from '../../utils/constants';
 
-function MainPage({
-    isLoggedIn
+function Dashboard({
+  isLoggedIn,
+  match: { params }
 }) {
     if (!isLoggedIn) {
         return <Redirect to={ROUTES.LOGIN}/>
@@ -22,14 +24,15 @@ function MainPage({
               <RoomsList />
             </aside>
             <main className="dashboard__main">
-              Dashboard
+              <Chat roomId={params.roomId} />
             </main>
         </section>
     )
 }
 
-MainPage.propTypes = {
-  isLoggedIn: PropTypes.bool
+Dashboard.propTypes = {
+  isLoggedIn: PropTypes.bool,
+  roomId: PropTypes.string
 };
 
-export default MainPage;
+export default Dashboard;

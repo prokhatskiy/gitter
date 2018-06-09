@@ -2,11 +2,17 @@
   width: 80%;
   min-width: 900px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 20px auto;
   display: flex;
+  flex-grow: 1;
 
   &__aside {
     width: 200px;
     overflow: auto;
+  }
+
+  &__main {
+    display: flex;
+    flex-grow: 1;
   }
 }

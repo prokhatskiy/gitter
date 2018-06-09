@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware } from 'redux'
+import Cookies from 'js-cookie';
 import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -6,6 +7,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from './reducer';
 
 let store;
+
+const initialState = {
+  auth: {
+    isLoggedIn: true //Boolean(Cookies.get('access_token'))
+  }
+};
 
 const axiosClient = axios.create({
   baseURL: '/',
@@ -21,7 +28,7 @@ const enhancers = composeWithDevTools(
 export function initStore() {
     store = createStore(
       reducer,
-      {},
+      initialState,
       enhancers
     );
 
