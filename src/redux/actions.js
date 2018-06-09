@@ -1,3 +1,4 @@
+import http from 'Utils/http';
 import { API } from 'Utils/constants';
 
 export function fetchUser() {
@@ -34,5 +35,12 @@ export function fetchMessages(roomId, beforeMessageId) {
         url: `${API.MESSAGES}/${roomId}`
       }
     }
+  }
+}
+
+export function postMessage(roomId, text) {
+  // this action has no reaction in store, dispatch is unused
+  return function() {
+    return http.post(`${API.MESSAGES}/${roomId}`, { text })
   }
 }

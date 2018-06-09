@@ -1,8 +1,10 @@
 import { createStore, applyMiddleware } from 'redux'
 import Cookies from 'js-cookie';
-import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
+import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+
+import http from 'Utils/http';
 
 import reducer from './reducer';
 
@@ -14,14 +16,10 @@ const initialState = {
   }
 };
 
-const axiosClient = axios.create({
-  baseURL: '/',
-  responseType: 'json'
-});
-
 const enhancers = composeWithDevTools(
   applyMiddleware(
-    axiosMiddleware(axiosClient)
+    axiosMiddleware(http),
+    thunk
   )
 );
 

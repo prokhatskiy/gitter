@@ -99,14 +99,16 @@ app.get('/api/messages/:roomId', function(req, res) {
     .catch(handleError(res));
 });
 
-app.get('/api/rooms', function (req, res) {
-  gitter.fetchRooms(req.session.token)
+app.post('/api/messages/:roomId', function(req, res) {
+  gitter.postMessages(req.session.token, req.params.roomId, req.body.text)
     .then(handleSuccess(res))
     .catch(handleError(res));
 });
 
-app.get('/api/steam', function (req, res) {
-  
+app.get('/api/rooms', function (req, res) {
+  gitter.fetchRooms(req.session.token)
+    .then(handleSuccess(res))
+    .catch(handleError(res));
 });
 
 // Serve static

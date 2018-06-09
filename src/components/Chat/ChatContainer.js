@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
-import { fetchMessages } from 'Redux/actions';
+import { fetchMessages, postMessage } from 'Redux/actions';
 import { getMessages } from 'Redux/selectors';
 
 import Chat from './Chat';
 
 export const mapDispatchToProps = {
-  fetchMessages
+  fetchMessages,
+  postMessage
 };
 
 export default connect(getMessages, mapDispatchToProps)(Chat);

@@ -14,28 +14,38 @@ function getApiPath(path, ...rest) {
 
 const gitter = {
   host: gitterHost,
-  fetch: function(path, token, opts) {
+  request: function(path, token, params) {
     const options = {
       url: gitterHost + path,
       headers: {
         'Authorization': 'Bearer ' + token
       },
-      qs: opts
+      json: true,
+      ...params
     };
 
     return request(options);
   },
 
   fetchCurrentUser: function(token) {
-    return this.fetch(getApiPath(Path.currentUser), token);
+    return this.request(getApiPath(Path.currentUser), token);
   },
 
   fetchRooms: function (token) {
-    return this.fetch(getApiPath(Path.rooms), token);
+    return this.request(getApiPath(Path.rooms), token);
   },
 
   fetchMessages: function (token, roomId, opts) {
-    return this.fetch(getApiPath(Path.message, roomId), token, opts);
+    return this.request(getApiPath(Path.message, roomId), token, opts);
+  },
+
+  postMessages: function (token, roomId, text) {
+    return this.request(getApiPath(Path.message, roomId), token, {
+      method: 'POST',
+      body: {
+        text
+      }
+    });
   }
 };
 
