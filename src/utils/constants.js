@@ -10,4 +10,5 @@ export const API = {
   USER: '/api/user',
   ROOMS: '/api/rooms',
   MESSAGES: '/api/messages',
+  STREAM: '/api/subscribe/messages/'
 };

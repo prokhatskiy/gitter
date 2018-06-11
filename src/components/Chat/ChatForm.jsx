@@ -28,6 +28,10 @@ class ChatForm extends Component {
     });
 
     this.props.postMessage(this.state.val);
+
+    this.setState({
+      val: ''
+    });
   };
 
   handleInputChange = e => {

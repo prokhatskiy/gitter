@@ -14,9 +14,9 @@ function getApiPath(path, ...rest) {
 
 const gitter = {
   host: gitterHost,
-  request: function(path, token, params) {
+  request: function(path, token, { host, ...params } = {}) {
     const options = {
-      url: gitterHost + path,
+      url: (host || gitterHost) + path,
       headers: {
         'Authorization': 'Bearer ' + token
       },

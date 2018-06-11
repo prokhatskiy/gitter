@@ -96,7 +96,7 @@ module.exports = {
       'react-native': 'react-native-web',
       'Utils': path.resolve(__dirname, '../src/utils/'),
       'Components':path.resolve(__dirname, '../src/components/'),
-      'UI-components': path.resolve(__dirname, '../src/ui-components/'),
+      'HOCs': path.resolve(__dirname, '../src/HOCs/'),
       'Redux': path.resolve(__dirname, '../src/redux/')
 
     },

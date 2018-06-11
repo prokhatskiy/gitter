@@ -1,12 +1,20 @@
 import { connect } from 'react-redux';
-import { fetchMessages, postMessage } from 'Redux/actions';
+import { compose } from 'recompose';
+
+import { fetchMessages, postMessage, appendMessage } from 'Redux/actions';
 import { getMessages } from 'Redux/selectors';
+
+import withSocketSubscription from 'HOCs/withSocketSubscription';
 
 import Chat from './Chat';
 
 export const mapDispatchToProps = {
   fetchMessages,
-  postMessage
+  postMessage,
+  appendMessage
 };
 
-export default connect(getMessages, mapDispatchToProps)(Chat);
+export default compose(
+  connect(getMessages, mapDispatchToProps),
+  withSocketSubscription
+)(Chat);

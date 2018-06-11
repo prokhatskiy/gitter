@@ -3,13 +3,38 @@ require('localenv');
 
 const express = require('express');
 const path = require('path');
+
 const session = require('express-session');
+const sharedsession = require("express-socket.io-session");
+
+const app = require('express')();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 const passport = require('passport');
 const OAuth2Strategy = require('passport-oauth2');
 const bodyParser = require('body-parser');
 
-const app = express();
+const Stream = require('./Stream');
+
+const expressSession = session({
+  secret: 'dreamteam',
+  resave: true,
+  saveUninitialized: false,
+  name: 'access_token'
+});
+
+// Socket Config
+io.use(sharedsession(expressSession, {
+  autoSave:true
+}));
+
+
+// TODO: need to add disconnection handler
+io.on('connection', function(socket){
+  new Stream(socket, io);
+});
+
 const port = process.env.PORT || 3000;
 
 // Client OAuth configuration
@@ -21,19 +46,13 @@ const gitter = require('./gitter');
 const { handleSuccess, handleError } = require('./utils');
 
 app.use('/static', express.static(path.join(__dirname, '../build/static')));
-
-app.use(session({
-  secret: 'dreamteam',
-  resave: true,
-  saveUninitialized: false,
-  name: 'access_token'
-}));
-
+app.use(expressSession);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Auth handler
 app.use(function (req, res, next) {
   if (!req.session.token && /\/api\//.test(req.baseUrl)) {
     res.status(401);
@@ -50,12 +69,12 @@ app.use(function (req, res, next) {
 
 // Passport Configuration
 passport.use(new OAuth2Strategy({
-    authorizationURL:   gitter.host + '/login/oauth/authorize',
-    tokenURL:           gitter.host + '/login/oauth/token',
-    clientID:           clientId,
-    clientSecret:       clientSecret,
-    callbackURL:        callbackURL,
-    passReqToCallback:  true
+    authorizationURL: gitter.host + '/login/oauth/authorize',
+    tokenURL: gitter.host + '/login/oauth/token',
+    clientID: clientId,
+    clientSecret: clientSecret,
+    callbackURL: callbackURL,
+    passReqToCallback: true
   },
   function(req, accessToken, refreshToken, profile, done) {
     req.session.token = accessToken;
@@ -112,6 +131,12 @@ app.get('/api/rooms', function (req, res) {
     .catch(handleError(res));
 });
 
+app.get('/api/subscribe/messages/:roomId', function(req, res) {
+  gitter.subscribeOnMessages(req.session.token, req.params.roomId)
+    .then(handleSuccess(res))
+    .catch(handleError(res));
+});
+
 // Serve static
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../build/index.html'), function(err) {
@@ -122,4 +147,4 @@ app.get('/*', function(req, res) {
 });
 
 // Start server
-app.listen(port, () => console.log('Example app listening on port ' + port + '!'));
+http.listen(port, () => console.log('Example app listening on port ' + port + '!'));

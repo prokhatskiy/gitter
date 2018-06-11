@@ -4,7 +4,7 @@ export default function reducer(state = {}, action) {
   switch (action.type) {
     case MESSAGES.LOAD:
       return {
-        ...state.messages, status: 'load'
+        status: 'load'
       };
 
     case MESSAGES.FETCHED:
@@ -14,7 +14,7 @@ export default function reducer(state = {}, action) {
 
     case MESSAGES.APPEND:
       return {
-        items: [...state.messages.items, ...action.payload.data], status: 'fetched'
+        items: [...state.items, action.payload.data], status: 'fetched'
       };
 
     default:

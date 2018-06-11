@@ -39,6 +39,19 @@ export function fetchMessages(roomId, beforeMessageId) {
   }
 }
 
+
+export function appendMessage(data) {
+  console.log(data);
+  return dispatch => (
+    dispatch({
+      type: MESSAGES.APPEND,
+      payload: {
+        data
+      }
+    })
+  )
+}
+
 export function postMessage(roomId, text) {
   // this action has no reaction in store, dispatch is unused
   return function() {

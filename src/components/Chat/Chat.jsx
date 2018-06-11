@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+
 import ChatForm from './ChatForm';
 
 import './Chat.scss';
@@ -10,42 +11,35 @@ class Chat extends Component {
   constructor(props) {
     super(props);
 
-    this.postMessage = function (text) {
-      props.postMessage(props.roomId, text);
-    };
-
     this.lastNode = React.createRef();
   }
+
   static propTypes = {
     messages: PropTypes.arrayOf(PropTypes.shape({
-
+      id: PropTypes.string,
+      html: PropTypes.string,
+      fromUser: PropTypes.shape({
+        displayName: PropTypes.string
+      })
     })),
     status: PropTypes.string,
-    fetchMessages: PropTypes.func,
     postMessage: PropTypes.func,
     roomId: PropTypes.string
   };
 
   static defaultProps = {
     messages: [],
-    fetchMessages: () => {},
     postMessage: () => {}
   };
-
-  componentWillMount() {
-    const { fetchMessages, roomId} = this.props;
-
-    if (roomId) {
-      fetchMessages(roomId);
-    }
-  }
 
   componentDidMount() {
     this.scrollToBottom();
   }
 
-  componentDidUpdate() {
-    this.scrollToBottom();
+  componentDidUpdate(prevProps) {
+    if (prevProps.messages !== this.props.messages) {
+      this.scrollToBottom();
+    }
   }
 
   scrollToBottom() {
@@ -74,7 +68,7 @@ class Chat extends Component {
       <div className={cn}>
         <ul className="chat__view">
           {
-            messages.map(({id, html, sent, fromUser: {displayName}}) => (
+            messages.map(({id, html, fromUser: {displayName}}) => (
               <li className="chat__message" key={id}>
                 <header className="chat__message-head">
                   {displayName}
@@ -86,7 +80,8 @@ class Chat extends Component {
           <li ref={this.lastNode} />
         </ul>
 
-        <ChatForm postMessage={this.postMessage} />
+        {/*TODO: remove arrow function*/}
+        <ChatForm postMessage={text => postMessage(roomId, text)} />
       </div>
     );
   }
