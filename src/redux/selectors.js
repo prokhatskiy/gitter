@@ -2,7 +2,7 @@ import get from 'lodash-es/get';
 
 export function getAuthStatus(state) {
   return {
-    isLoggedIn: get(state, 'auth.isLoggedIn', true)
+    isLoggedIn: get(state, 'error.isLoggedIn', true)
   };
 }
 

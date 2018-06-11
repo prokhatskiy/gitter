@@ -10,7 +10,7 @@ const OAuth2Strategy = require('passport-oauth2');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = process.env.PORT || 7000;
+const port = process.env.PORT || 3000;
 
 // Client OAuth configuration
 const clientId = process.env.GITTER_KEY;

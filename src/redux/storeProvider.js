@@ -1,18 +1,17 @@
-import { createStore, applyMiddleware } from 'redux'
-import Cookies from 'js-cookie';
+import { createStore, applyMiddleware, combineReducers } from 'redux'
 import axiosMiddleware from 'redux-axios-middleware';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import http from 'Utils/http';
 
-import reducer from './reducer';
+import reducers from './reducers';
 
 let store;
 
 const initialState = {
   auth: {
-    isLoggedIn: true //Boolean(Cookies.get('access_token'))
+    isLoggedIn: true
   }
 };
 
@@ -25,7 +24,7 @@ const enhancers = composeWithDevTools(
 
 export function initStore() {
     store = createStore(
-      reducer,
+      combineReducers(reducers),
       initialState,
       enhancers
     );
