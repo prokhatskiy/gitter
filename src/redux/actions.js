@@ -1,9 +1,10 @@
 import http from 'Utils/http';
 import { API } from 'Utils/constants';
+import { USER, MESSAGES, ERROR, ROOMS } from './types';
 
 export function fetchUser() {
   return {
-    types: ['LOAD:USER', 'FETCHED:USER', 'ERROR'],
+    types: [USER.LOAD, USER.FETCHED, ERROR],
     payload: {
       request:{
         url: API.USER
@@ -14,7 +15,7 @@ export function fetchUser() {
 
 export function fetchRooms() {
   return {
-    types: ['LOAD:ROOMS', 'FETCHED:ROOMS', 'ERROR'],
+    types: [ROOMS.LOAD, ROOMS.FETCHED, ERROR],
     payload: {
       request:{
         url: API.ROOMS
@@ -26,9 +27,9 @@ export function fetchRooms() {
 export function fetchMessages(roomId, beforeMessageId) {
   return {
     types: [
-      'LOAD:MESSAGES',
-       beforeMessageId ? 'APPEND:MESSAGES' : 'FETCHED:MESSAGES',
-      'ERROR'
+      MESSAGES.LOAD,
+      beforeMessageId ? MESSAGES.APPEND : MESSAGES.FETCHED,
+      ERROR
     ],
     payload: {
       request:{

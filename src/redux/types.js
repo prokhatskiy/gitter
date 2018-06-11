@@ -1,0 +1,17 @@
+export const ERROR = 'ERROR';
+
+export const MESSAGES = {
+  LOAD: 'LOAD:MESSAGES',
+  APPEND: 'APPEND:MESSAGES',
+  FETCHED: 'FETCHED:MESSAGES'
+};
+
+export const ROOMS = {
+  LOAD: 'LOAD:ROOMS',
+  FETCHED: 'FETCHED:ROOMS'
+};
+
+export const USER = {
+  LOAD: 'LOAD:USER',
+  FETCHED: 'FETCHED:USER'
+};

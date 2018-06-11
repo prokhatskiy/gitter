@@ -1,11 +1,13 @@
+import { ROOMS } from '../types';
+
 export default function reducer(state = {}, action) {
   switch (action.type) {
-    case 'LOAD:ROOMS':
+    case ROOMS.LOAD:
       return {
         status: 'load'
       };
 
-    case 'FETCHED:ROOMS':
+    case ROOMS.FETCHED:
       return {
         items: [...action.payload.data], status: 'fetched'
       };

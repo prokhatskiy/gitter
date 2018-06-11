@@ -1,16 +1,18 @@
+import { MESSAGES } from '../types';
+
 export default function reducer(state = {}, action) {
   switch (action.type) {
-    case 'LOAD:MESSAGES':
+    case MESSAGES.LOAD:
       return {
         ...state.messages, status: 'load'
       };
 
-    case 'FETCHED:MESSAGES':
+    case MESSAGES.FETCHED:
       return {
         items: [...action.payload.data], status: 'fetched'
       };
 
-    case 'APPEND:MESSAGES':
+    case MESSAGES.APPEND:
       return {
         items: [...state.messages.items, ...action.payload.data], status: 'fetched'
       };
