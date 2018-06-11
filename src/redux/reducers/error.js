@@ -11,7 +11,6 @@ export default function reducer(state = {}, action) {
       }
 
       return {
-        ...state,
         ...get(action, 'error.response')
       };
 

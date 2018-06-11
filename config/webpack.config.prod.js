@@ -98,7 +98,6 @@ module.exports = {
       'Components':path.resolve(__dirname, '../src/components/'),
       'HOCs': path.resolve(__dirname, '../src/HOCs/'),
       'Redux': path.resolve(__dirname, '../src/redux/')
-
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
