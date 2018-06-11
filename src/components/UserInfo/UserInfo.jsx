@@ -34,7 +34,10 @@ class UserInfo extends Component {
     return (
       <div className={cn}>
         { isLoading && <span className="loader">Loading...</span>}
-        <img src={avatarUrlMedium} alt={displayName} className="user-info__pic" />
+        {
+          avatarUrlMedium &&
+          <img src={avatarUrlMedium} alt={displayName} className="user-info__pic" />
+        }
         <h1 className="user-info__name">
           {displayName}
         </h1>

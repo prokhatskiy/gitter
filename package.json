@@ -20,8 +20,11 @@
     "cookie-parser": "^1.4.3",
     "cross-env": "^5.1.6",
     "css-loader": "0.28.7",
+    "cypress": "^3.0.1",
     "dotenv": "^6.0.0",
     "dotenv-expand": "^4.2.0",
+    "enzyme-adapter-react-15": "^1.0.5",
+    "enzyme-to-json": "^3.3.4",
     "eslint": "4.10.0",
     "eslint-config-react-app": "^2.1.0",
     "eslint-loader": "1.9.0",
@@ -75,8 +78,7 @@
     "webpack": "3.8.1",
     "webpack-dev-server": "2.9.4",
     "webpack-manifest-plugin": "1.3.2",
-    "whatwg-fetch": "2.0.3",
-    "cypress": "^3.0.1"
+    "whatwg-fetch": "2.0.3"
   },
   "scripts": {
     "dev": "node scripts/start.js",
@@ -104,7 +106,10 @@
     },
     "transformIgnorePatterns": [],
     "moduleNameMapper": {
-      "^react-native$": "react-native-web"
+      "^Utils(.*)$": "<rootDir>/src/utils$1",
+      "^Components(.*)$": "<rootDir>/src/components$1",
+      "^HOCs(.*)$": "<rootDir>/src/HOCs$1",
+      "^Redux(.*)$": "<rootDir>/src/redux$1"
     },
     "moduleFileExtensions": [
       "web.js",
@@ -113,7 +118,9 @@
       "web.jsx",
       "jsx",
       "node"
-    ]
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/config/jest/setup.js",
+    "snapshotSerializers": ["enzyme-to-json/serializer"]
   },
   "babel": {
     "env": {
@@ -136,5 +143,9 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "http://localhost:3000"
+  "proxy": "http://localhost:3000",
+  "devDependencies": {
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1"
+  }
 }

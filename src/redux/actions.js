@@ -41,7 +41,6 @@ export function fetchMessages(roomId, beforeMessageId) {
 
 
 export function appendMessage(data) {
-  console.log(data);
   return dispatch => (
     dispatch({
       type: MESSAGES.APPEND,
