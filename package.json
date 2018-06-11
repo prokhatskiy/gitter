@@ -84,7 +84,7 @@
     "dev": "node scripts/start.js",
     "start": "node scripts/build.js && node server/app.js",
     "test": "node scripts/test.js --env=jsdom",
-    "e2e": "npm start && node_modules/.bin/cypress open"
+    "e2e": "concurrently \"npm start\" \"node_modules/.bin/cypress open\""
   },
   "jest": {
     "collectCoverageFrom": [
