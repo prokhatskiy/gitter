@@ -1,3 +1,4 @@
+require('dotenv').config();
 require('localenv');
 
 const express = require('express');
@@ -12,9 +13,9 @@ const app = express();
 const port = process.env.PORT || 7000;
 
 // Client OAuth configuration
-const clientId = 'cfa532f0674bf0ea74e198f71b822123943839b7';
-const clientSecret = 'e33496371881363f37a4e1e79e6aa456b23683eb';
-const callbackURL = 'https://secure-river-71650.herokuapp.com/auth/callback';
+const clientId = process.env.GITTER_KEY;
+const clientSecret = process.env.GITTER_SECRET;
+const callbackURL = process.env.GITTER_REDIRECT_URI;
 
 const gitter = require('./gitter');
 const { handleSuccess, handleError } = require('./utils');
